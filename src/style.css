@@ -1,0 +1,33 @@
+body{
+    font-family: cursive;
+    margin: 0px auto;
+}
+.logo{
+    width: 45px;
+    height: 45px;
+    margin-left: 8px;
+    margin-top: 3px;
+}
+.header{
+    display: flex;
+    background-color: #005B92;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%23005B92' cx='50' cy='0' r='50'/%3E%3Cg fill='%2300639a' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%23006ca1' cx='50' cy='100' r='50'/%3E%3Cg fill='%230074a8' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23007dae' cx='50' cy='200' r='50'/%3E%3Cg fill='%230085b4' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%23008eb9' cx='50' cy='300' r='50'/%3E%3Cg fill='%230096bd' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%23009fc1' cx='50' cy='400' r='50'/%3E%3Cg fill='%2300a7c4' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%2300afc6' cx='50' cy='500' r='50'/%3E%3Cg fill='%2300b8c8' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%2300c0c9' cx='50' cy='600' r='50'/%3E%3Cg fill='%2300c8c9' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%2300d0c9' cx='50' cy='700' r='50'/%3E%3Cg fill='%2300d9c9' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%2331e1c8' cx='50' cy='800' r='50'/%3E%3Cg fill='%234be8c7' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%2360f0c5' cx='50' cy='900' r='50'/%3E%3Cg fill='%2374f8c4' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%2387FFC2' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: contain;
+}
+.titulo{
+    color: #fff;
+    margin-top: 10px;
+    margin-left: 10px;
+
+}
+
+.alerta-error {
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 10px;
+    text-transform: uppercase;
+    text-align: center;
+  } 
