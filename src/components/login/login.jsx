@@ -9,25 +9,17 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
-import Alert from '@mui/material/Alert';
+import { ReactDOM } from 'react-router-dom';
+import Swal from 'sweetalert2'
+import HomePage from '../homePage/homePage';
 
+import axios from 'axios'
 
-// "userName":"1",
-// "firstName":"2",
-// "lastName":"3",
-// "email":"4",
-// "password":"5",
-// "role":"USER",
-// "typeDocument":"6",
-// "documentId":"7",
-// "bornDate":"2000-09-30",
-// "gender":"8",
-// "phone":"9"
 const Login = () => {
     const [ showPassword, setShowPassword ] = useState(false);
 	
 	const [ dataUser, setDataUser ] = useState({
-		correo: '',
+		userName: '',
 		password: ''
 	});
     // Mostrar contraseña
@@ -35,14 +27,43 @@ const Login = () => {
             setShowPassword(!showPassword);
             event.preventDefault();
         };
-	const handleSubmit = () => {
+	
+	const handleSubmit = async() => {
 		const { correo, password } = dataUser;
 			if (correo !== '' && password !== '') {
-				localStorage.setItem('sesion', JSON.stringify(dataUser));
+				const options = {
+					method: 'POST',
+					url: 'http://localhost:8081/authenticate',
+					Headers: { 'Content-Type' : 'aplication/json'},
+					data: {
+						userName: dataUser.userName,
+						password: dataUser.password
+					}	
+				}
+				await axios.request(options).then(function(response){
+						console.log(response.data)	
+						Swal.fire({ 
+							icon: 'success',
+							title: 'Genial...',
+							  text: 'Bienvenido!'
+							})
+				}).catch(function (error) {
+					console.error(error);
+					Swal.fire({ 
+						icon: 'error',
+						  title: 'Oops...',
+						  text: 'Usuraio no encontrado!',
+					})
+				})	
 			} else {
-				<Alert  variant="filled" severity="error" style={{width:'100%', margin:'10px'}}>Todos los campos son obligatorios</Alert>
-			}
-		};
+				// alert('todos los campos deven ir llenos ')
+				Swal.fire({ 
+					icon: 'warning',
+  					title: 'Oops...',
+  					text: 'Todos los campos son obligatorios!'
+				})
+						}
+	}
     return (  
         <Grid container style={{width:'100%'}}>
 				<Grid item  xs={12} sm={12} md={3} lg={3} style={{ margin: '4rem auto'}}>
@@ -95,11 +116,11 @@ const Login = () => {
 									id="mui-theme-provider-outlined-input"
 									label="Correo electrónico"
 									variant="outlined"
-									type="correo"
-									name="correo"
+									type="text"
+									name="userName"
                                     size='small'
 									className="correo-box"
-									value={dataUser.correo}
+									value={dataUser.userName}
 									onChange={(e) =>
 										setDataUser({
 											...dataUser,
@@ -175,5 +196,4 @@ const Login = () => {
 			</Grid>
     );
 }
- 
 export default Login;

@@ -122,7 +122,6 @@ const NewUser = () => {
               activestyle={{ color: '#e1e1e1!important', backgroundColor: '#000!important' }}
               underline='none'
               >
-                
                 <h4 className="iniciar-sesionon" style={{ cursor: 'pointer',color:'#2F8DD8',display:'flex',justifyContent:'center' }}>
                   Iniciar sesión
                 </h4>
