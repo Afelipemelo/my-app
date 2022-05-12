@@ -10,11 +10,16 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios'
 import Alert from '@mui/material/Alert';
 
 const NewUser = () => {
+      const navigate = useNavigate()
+
       //state para validar que los datos del formulario esten llenos   
       const [error,setError] = useState(false)
       //state de la contraseña 
@@ -51,10 +56,10 @@ const NewUser = () => {
         //handleSubmit para enviar el formulario
         const handleSubmit = (e) => {
           e.preventDefault();
-        //   if(userName.trim()=="" || firstName.trim() == "" || lastName.trim()=="" ||email.trim() == "" ||typeDocument.trim()== "" || documentId.trim()== ""|| bornDate.trim()== ""|| gender.trim()== ""|| phone.trim()== ""||password.trim() == "" ){
-        //     setError(true)
-        //     return;
-        // }
+          if(userName.trim()=="" || firstName.trim() == "" || lastName.trim()=="" ||email.trim() == ""|| documentId.trim()== ""|| phone.trim()== ""||password.trim() == "" ){
+            setError(true)
+            return;
+        }
         console.log('paso la validacion')
         setError(false)
 
@@ -80,10 +85,10 @@ const NewUser = () => {
           };  
           await axios.request(options).then(function (response) {
             console.log(response.data);
-            alert("Cita agendada con exito"); // lo puse como un mensaje emergente :v
+            navigate('/Login')
           }).catch(function (error) {
             console.error(error);
-            alert("Error al agendar la cita");
+            alert("Error al crear el usuario");
           });
         }
 
@@ -102,8 +107,12 @@ const NewUser = () => {
       phone:"",
       password:""
       })
-          alert("El formulario se ha enviado");
-        };
+      Swal.fire({ 
+        icon: 'success',
+        title: 'Genial...',
+          text: 'Registro Exitoso!'
+        })   
+    };
        
     return (
     <Grid container style={{width:'100%'}}>
@@ -115,27 +124,12 @@ const NewUser = () => {
             background:'rgb(250, 250, 250)'}}
         >
         <Box style={{width:'100%'}}>
-          <Grid container>
-            <Grid item xs={6} sm={6} md={6} lg={6}>
-              <Link
-              href='./Login'
-              activestyle={{ color: '#e1e1e1!important', backgroundColor: '#000!important' }}
-              underline='none'
-              >
-                <h4 className="iniciar-sesionon" style={{ cursor: 'pointer',color:'#2F8DD8',display:'flex',justifyContent:'center' }}>
-                  Iniciar sesión
-                </h4>
-              </Link>
+          <Grid container style={{marginLeft:'18%'}} >
+            <Grid item xs={6} sm={6} md={6} lg={6} style={{marginTop:'20px',marginBottom:'10px'}}>
+            <Link to="/Login" className='links'>Iniciar sesion </Link>
             </Grid>
-            <Grid item xs={6} sm={6} md={6} lg={6}>
-              <Link
-                activestyle={{ color: '#e1e1e1!important', backgroundColor: '#000!important' }}
-                underline='none'
-              >
-                <h4 className="registrarseoff" style={{ cursor: 'pointer',color:'#2F8DD8',display:'flex',justifyContent:'center' }}>
-                  Registrarse
-                </h4>
-              </Link>
+            <Grid item xs={6} sm={6} md={6} lg={6} style={{marginTop:'20px',marginBottom:'10px'}}>
+            <Link to="/NewUser" className='links'>Registrarse</Link>
             </Grid>
           </Grid>
         </Box>
@@ -328,7 +322,8 @@ const NewUser = () => {
                       variant="contained" 
                       type="submit" 
                       onChange={handleChange}
-                    >Registrarse</Button>
+                    >Registrarse
+                    </Button>
                     </div>
           </form>
           {error ?  <Alert  variant="filled" severity="error" style={{width:'100%', margin:'10px'}}>Todos los campos son obligatorios</Alert> : null}

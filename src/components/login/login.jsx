@@ -1,9 +1,9 @@
-import React,{useState,useEffect}from 'react'
-
-import { styled } from '@mui/material/styles';
+import React,{useState,useEffect,Fragment}from 'react'
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import Button from '@mui/material/Button';
@@ -11,11 +11,16 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import { ReactDOM } from 'react-router-dom';
 import Swal from 'sweetalert2'
+import GoogleLogin from 'react-google-login';
+import { useAuth0 } from '@auth0/auth0-react';
 import HomePage from '../homePage/homePage';
 
 import axios from 'axios'
 
 const Login = () => {
+	const navigate = useNavigate()
+	const {isAuthenticated} = useAuth0()
+	const {loginWithRedirect} = useAuth0();
     const [ showPassword, setShowPassword ] = useState(false);
 	
 	const [ dataUser, setDataUser ] = useState({
@@ -29,8 +34,8 @@ const Login = () => {
         };
 	
 	const handleSubmit = async() => {
-		const { correo, password } = dataUser;
-			if (correo !== '' && password !== '') {
+		const { userName, password } = dataUser;
+			if (userName !== '' && password !== '') {
 				const options = {
 					method: 'POST',
 					url: 'http://localhost:8081/authenticate',
@@ -47,6 +52,7 @@ const Login = () => {
 							title: 'Genial...',
 							  text: 'Bienvenido!'
 							})
+							navigate('/HomePage')	
 				}).catch(function (error) {
 					console.error(error);
 					Swal.fire({ 
@@ -54,9 +60,8 @@ const Login = () => {
 						  title: 'Oops...',
 						  text: 'Usuraio no encontrado!',
 					})
-				})	
+				})
 			} else {
-				// alert('todos los campos deven ir llenos ')
 				Swal.fire({ 
 					icon: 'warning',
   					title: 'Oops...',
@@ -65,7 +70,8 @@ const Login = () => {
 						}
 	}
     return (  
-        <Grid container style={{width:'100%'}}>
+		<Fragment>
+		<Grid container style={{width:'100%'}}>
 				<Grid item  xs={12} sm={12} md={3} lg={3} style={{ margin: '4rem auto'}}>
 					<Box border={2} 
                         className='inicio'
@@ -75,28 +81,13 @@ const Login = () => {
                             boxShadow: '5px 5px 6px 2px  rgba(125,125,125,0.43)',
                             background:'rgb(250, 250, 250)'}}
                     >
-						<Grid container style={{marginLeft:'20px'}} >
-							<Grid item xs={6} sm={6} md={6} lg={6}>
-								<Link
-									activestyle={{ color: '#e1e1e1!important', backgroundColor: '#000!important' }}
-									underline='none'
-								>
-									<h4 className="iniciar-sesionon" style={{ cursor: 'pointer',color:'#2F8DD8' }}>
-										Iniciar sesión
-									</h4>
-								</Link>
-								</Grid>
-							<Grid item xs={6} sm={6} md={6} lg={6}>
-								<Link
-									href='./NewUser'
-									activestyle={{ color: '#e1e1e1!important', backgroundColor: '#000!important' }}
-									underline='none'
-								>
-									<h4 className="registrarseoff" style={{ cursor: 'pointer',color:'#2F8DD8' }}>
-										Registrarse
-									</h4>
-								</Link>
-							
+						<Grid container style={{marginLeft:'30px'}} >
+							<Grid item xs={6} sm={6} md={6} lg={6} style={{marginTop:'20px'}}>
+								<Link to="/Login" className='links'
+								>Iniciar sesion </Link>
+							</Grid>
+							<Grid item xs={6} sm={6} md={6} lg={6}  style={{marginTop:'20px'}}>
+								<Link to="/NewUser" className='links'>Registrarse</Link>
 							</Grid>
 						</Grid>
 
@@ -104,7 +95,7 @@ const Login = () => {
 							{/* //Correo electronico//   */}
 							<Box >
 								<TextField
-                                    style={{margin:'10px',width:'92%'}}
+                                    style={{margin:'30px 0px 10px 10px',width:'92%'}}
 									inputProps={{
 										style: {
 											color: '#2F8DD8'
@@ -114,7 +105,7 @@ const Login = () => {
 										style: { color: '#2F8DD8' }
 									}}
 									id="mui-theme-provider-outlined-input"
-									label="Correo electrónico"
+									label="Nombre de Usuario"
 									variant="outlined"
 									type="text"
 									name="userName"
@@ -132,8 +123,7 @@ const Login = () => {
 							{/* //Contraseña//   */}
 							<Box>
 								<TextField
-                                    
-                                    style={{margin:'10px',width:'92%'}}
+                                    style={{margin:'10px 0px 40px 10px',width:'92%'}}
 									inputProps={{
 										style: {
 											color: '#2F8DD8'
@@ -172,12 +162,12 @@ const Login = () => {
 							</Box>
 
 							<Box style={{marginTop:'-20px',display:'flex',justifyContent:'center'}}>
-								<Link
+								{/* <Link
                                     style={{textDecoration:'none'}}
 									activestyle={{ color: '#e1e1e1!important', backgroundColor: '#000!important' }}
 								>
 									<h6 style={{ cursor: 'pointer' }}>¿Olvidó su Contraseña?</h6>
-								</Link>
+								</Link> */}
 							</Box>
 							<Box style={{ display:'flex', justifyContent:'center',height:'50px' }}>
 								<Button
@@ -185,15 +175,30 @@ const Login = () => {
 									variant="contained"
                                     size='small'
 									onClick={handleSubmit}
-                                    style={{fontSize:'6px', marginBottom:'10px'}}
+                                    style={{fontSize:'6px'}}
 									>
 									<h1 style={{fontFamily:'cursive'}}>Iniciar Sesión</h1>
 								</Button>
 							</Box>
 						</form>
+						<Box  style={{ display:'flex', justifyContent:'center',height:'50px',marginTop:'10px' }}>
+							<Button
+								// color="primary"
+								variant="outlined"
+								size='small'
+								onClick={()=> loginWithRedirect()}
+								style={{marginBottom:'20px'}}
+								>
+								<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original-wordmark.svg" />
+							</Button>
+						</Box>
 					</Box>
 				</Grid>
 			</Grid>
+			{isAuthenticated ? 
+				navigate('/HomePage')
+				:null}
+			</Fragment>
     );
 }
 export default Login;

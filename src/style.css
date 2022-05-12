@@ -31,3 +31,13 @@ body{
     text-transform: uppercase;
     text-align: center;
   } 
+.botonGoogle{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.links{
+    text-decoration: none;
+    color: #2F8DD8;
+    cursor:pointer;
+}
