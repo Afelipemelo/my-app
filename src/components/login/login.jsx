@@ -1,7 +1,6 @@
 import React,{useState,useEffect,Fragment}from 'react'
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-// import Link from '@mui/material/Link';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
@@ -14,15 +13,16 @@ import Swal from 'sweetalert2'
 import GoogleLogin from 'react-google-login';
 import { useAuth0 } from '@auth0/auth0-react';
 import HomePage from '../homePage/homePage';
+import  Navbar  from '../navBar/navBar';
+
 
 import axios from 'axios'
 
 const Login = () => {
 	const navigate = useNavigate()
-	const {isAuthenticated} = useAuth0()
+	const {user,isAuthenticated} = useAuth0()
 	const {loginWithRedirect} = useAuth0();
-    const [ showPassword, setShowPassword ] = useState(false);
-	
+    const [ showPassword, setShowPassword ] = useState(false); 
 	const [ dataUser, setDataUser ] = useState({
 		userName: '',
 		password: ''
@@ -32,9 +32,10 @@ const Login = () => {
             setShowPassword(!showPassword);
             event.preventDefault();
         };
-	
+
 	const handleSubmit = async() => {
 		const { userName, password } = dataUser;
+		console.log(dataUser)
 			if (userName !== '' && password !== '') {
 				const options = {
 					method: 'POST',
@@ -71,6 +72,7 @@ const Login = () => {
 	}
     return (  
 		<Fragment>
+			<Navbar/>
 		<Grid container style={{width:'100%'}}>
 				<Grid item  xs={12} sm={12} md={3} lg={3} style={{ margin: '4rem auto'}}>
 					<Box border={2} 
@@ -195,8 +197,9 @@ const Login = () => {
 					</Box>
 				</Grid>
 			</Grid>
-			{isAuthenticated ? 
+			{isAuthenticated ?	
 				navigate('/HomePage')
+			
 				:null}
 			</Fragment>
     );

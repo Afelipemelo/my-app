@@ -41,3 +41,36 @@ body{
     color: #2F8DD8;
     cursor:pointer;
 }
+.linksHome{
+    text-decoration: none;
+    color: white;
+    cursor:pointer;
+}
+.container-reglas{
+    margin:20px 100px 0px 100px;
+    border:  2px solid  #2F8DD8 ;  
+    border-radius: 10px;  
+}
+.reglas{
+    
+    justify-content: center;
+}
+.historial-moviminetos{
+     margin:20px 0px 0px 100px;
+    border:  2px solid  #2F8DD8 ;  
+    border-radius: 10px;  
+    height: 500px;
+}
+.historial-integrantes{
+     margin:20px -15px 0px 20px;
+    border:  2px solid  #2F8DD8 ;  
+    border-radius: 10px;  
+    height: 500px;
+}
+.monto{
+    display: flex;
+    justify-content: center;
+    margin:10px 50px 0px 50px;
+    border:  2px solid  #2F8DD8 ;  
+    border-radius: 10px;  
+}

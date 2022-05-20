@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import Alert from '@mui/material/Alert';
+import  Navbar  from '../navBar/navBar';
 
 const NewUser = () => {
       const navigate = useNavigate()
@@ -115,6 +116,8 @@ const NewUser = () => {
     };
        
     return (
+      <Fragment>
+        <Navbar/>
     <Grid container style={{width:'100%'}}>
 
       <Grid container item  xs={12} sm={12} md={7} lg={7} style={{ margin: '4rem auto'}} sx={{
@@ -331,6 +334,8 @@ const NewUser = () => {
         </Box>
       </Grid>
     </Grid>
+    </Fragment>
+
       )
     }
     export default NewUser
